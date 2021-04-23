@@ -1,0 +1,46 @@
+<html>
+<head>
+    <script src="jquery.js"></script>
+    
+    <script>
+        // wait for the DOM to be loaded
+        $(document).ready(function(){
+			 
+});
+function uploadCsv() {
+			var csvfile = $("#csvfile").val();
+						
+		$.ajax({
+        type: 'POST',
+		crossDomain: true,
+		//dataType: 'json',
+        url:"http://localhost:59513/api/meter-reading-uploads",
+        data: new FormData($('form')[0]),
+        processData: false, 
+        contentType: false, 
+        success: function(returnval) {
+		
+				$("#status").html(returnval.message);
+				$('#status').show();
+			},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert (textStatus + errorThrown);
+			}
+		}) 
+		;
+}
+    </script>
+</head>
+<body>
+<img src="ensek.jpg" />
+<h3>Please select a file</h3>
+<hr>
+<form enctype="multipart/form-data">
+<input type="file" id="file" name="file" />
+<input type="button" id="save" name="upload" value="Upload" onclick="uploadCsv()" />
+</form>
+<br>
+<p id="status" style="color:darkblue"></p>
+
+</body>
+</html>
